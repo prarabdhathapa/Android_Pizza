@@ -10,7 +10,7 @@ public class Meatzza extends Pizza {
     private final double medMeatzzaPrice = 19.99;
     private final double largeMeatzzaPrice = 21.99;
 
-    public Meatzza(Crust crust, Size size, int imageResID) {
+    public Meatzza(Crust crust, Size size, ImageResID imageResID) {
         super(crust, size, imageResID);
         setToppings(toppings);
     }

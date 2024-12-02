@@ -10,7 +10,7 @@ public class Deluxe extends Pizza {
     private final double medDeluxePrice = 18.99;
     private final double largeDeluxePrice = 20.99;
 
-    public Deluxe(Crust crust, Size size, int imageResID) {
+    public Deluxe(Crust crust, Size size, ImageResID imageResID) {
         super(crust, size, imageResID);
         setToppings(toppings);
     }

@@ -10,7 +10,7 @@ public class BBQChicken extends Pizza {
     private final double medBBQPrice = 16.99;
     private final double largeBBQPrice = 19.99;
 
-    public BBQChicken(Crust crust, Size size, int imageResID) {
+    public BBQChicken(Crust crust, Size size, ImageResID imageResID) {
         super(crust, size, imageResID);
         setToppings(toppings);
     }

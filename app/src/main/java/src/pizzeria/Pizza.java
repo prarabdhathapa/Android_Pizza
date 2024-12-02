@@ -9,17 +9,17 @@ public abstract class Pizza {
     private ArrayList<Toppings> toppings; // Topping is an Enum class
     private Crust crust;  // Crust is an Enum class
     private Size size;   // Size is an Enum class
-    private int imageResID; // ImageResID is an Enum class
+    private ImageResID imageResID; // ImageResID is an Enum class
 
     public abstract double price();
 
     public Pizza() {
         this.crust = Crust.PAN;
         size = Size.MEDIUM;
-        imageResID = ImageResID.CHI_CUSTOM.getImageResID();
+        imageResID = ImageResID.CHI_CUSTOM;
     }
 
-    public Pizza(Crust crust, Size size, int imageResID) {
+    public Pizza(Crust crust, Size size, ImageResID imageResID) {
         this.crust = crust;
         this.size = size;
         this.imageResID = imageResID;
@@ -40,7 +40,7 @@ public abstract class Pizza {
     }
 
     public int getImageResID() {
-        return imageResID;
+        return imageResID.getImageResID();
     }
 
     public void setToppings(ArrayList<Toppings> toppings) {
@@ -58,6 +58,11 @@ public abstract class Pizza {
     public void removeTopping(Toppings topping) {
         toppings.remove(topping);
     }
+
+    public String getName() {
+        return imageResID.getPizzaName();
+    }
+
 
     public String printToppings() {
         String strToppings = "";

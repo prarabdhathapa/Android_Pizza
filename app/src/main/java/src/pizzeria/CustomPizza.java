@@ -10,7 +10,7 @@ public class CustomPizza extends Pizza {
     private final double largeCustomPrice = 12.99;
     private final double costOfTopping = 1.69;
 
-    public CustomPizza(Crust crust, Size size, int imageResID) {
+    public CustomPizza(Crust crust, Size size, ImageResID imageResID) {
         super(crust, size, imageResID);
         setToppings(toppings);
     }

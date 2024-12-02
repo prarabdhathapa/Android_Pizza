@@ -16,35 +16,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_order); // your XML layout file
 
-        // Set onClick listener for close button
-        findViewById(R.id.closeButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Show Toast and navigate to Main activity
-                Toast.makeText(CurrentOrderActivity.this, "Navigating to Main Menu", Toast.LENGTH_SHORT).show();
-                navigateToMain();
-            }
-        });
-
-        // Set onClick listener for back button
-        findViewById(R.id.backButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Show Toast and navigate to Create Pizza activity
-                Toast.makeText(CurrentOrderActivity.this, "Navigating to Create Pizza", Toast.LENGTH_SHORT).show();
-                navigateToCreatePizza();
-            }
-        });
-
-        // Set onClick listener for continue button
-        findViewById(R.id.continueButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Show Toast and navigate to Order History activity
-                Toast.makeText(CurrentOrderActivity.this, "Navigating to Order History", Toast.LENGTH_SHORT).show();
-                navigateToOrderHistory();
-            }
-        });
+        findViewById(R.id.closeButton).setOnClickListener(v -> navigateToMain());
+        findViewById(R.id.backButton).setOnClickListener(v -> navigateToCreatePizza());
+        findViewById(R.id.continueButton).setOnClickListener(v -> navigateToOrderHistory());
     }
 
     // Method to navigate to Main activity
