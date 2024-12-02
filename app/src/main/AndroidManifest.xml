@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CS213_Project_5">
         <activity
-            android:name=".MainActivity"
+            android:name="src.MainActivity"
             android:exported="true"
             android:label="RU Pizzeria"
             android:theme="@style/Theme.CS213_Project_5">
@@ -22,9 +22,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".CreatePizzaActivity" />
-        <activity android:name=".CurrentOrderActivity" />
-        <activity android:name=".OrderHistoryActivity" />
+        <activity android:name="src.CreatePizzaActivity" />
+        <activity android:name="src.CurrentOrderActivity" />
+        <activity android:name="src.OrderHistoryActivity" />
 
     </application>
 
