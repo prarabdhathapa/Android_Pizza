@@ -2,5 +2,7 @@
 
 <resources>
     <style name="Theme.CS213_Project_5" parent="Theme.AppCompat.Light">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
     </style>
 </resources>
