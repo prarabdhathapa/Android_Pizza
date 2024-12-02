@@ -6,144 +6,149 @@
     android:layout_height="match_parent"
     tools:context=".CurrentOrderActivity">
 
-    <!-- X Button (Close/Return to Main Menu) at Top Right -->
-    <ImageButton
-        android:id="@+id/closeButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:src="@android:drawable/ic_menu_close_clear_cancel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- ScrollView to make the content scrollable -->
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
-        <!-- LinearLayout for all content inside the ScrollView -->
-        <LinearLayout
+        <!-- X Button (Close/Return to Main Menu) at Top Right -->
+        <ImageButton
+            android:id="@+id/closeButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end|top"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:elevation="4dp"
+            android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
+        <!-- ScrollView to make the content scrollable -->
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-            <!-- Order Title -->
-            <TextView
-                android:id="@+id/order_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:text="Order Details"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <!-- ListView to display the items -->
-            <ListView
-                android:id="@+id/order_list_view"
-                android:layout_width="match_parent"
-                android:layout_height="434dp"
-                android:layout_marginBottom="16dp"
-                android:divider="@android:color/darker_gray"
-                android:dividerHeight="1dp" />
-
-            <!-- Subtotal, Tax, and Total Section -->
+            <!-- LinearLayout for all content inside the ScrollView -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <!-- Subtotal -->
+                <!-- Order Title -->
                 <TextView
-                    android:id="@+id/subtotal"
-                    android:layout_width="match_parent"
+                    android:id="@+id/order_title"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="end"
-                    android:text="Subtotal: $0.00"
-                    android:textSize="18sp" />
-
-                <!-- Tax -->
-                <TextView
-                    android:id="@+id/tax"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="end"
-                    android:text="Tax: $0.00"
-                    android:textSize="18sp" />
-
-                <!-- Total -->
-                <TextView
-                    android:id="@+id/total"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="0dp"
-                    android:gravity="end"
-                    android:text="Total: $0.00"
-                    android:textSize="20sp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:text="Order Details"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
+
+                <!-- ListView to display the items -->
+                <ListView
+                    android:id="@+id/order_list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="434dp"
+                    android:layout_marginBottom="16dp"
+                    android:divider="@android:color/darker_gray"
+                    android:dividerHeight="1dp" />
+
+                <!-- Subtotal, Tax, and Total Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="vertical">
+
+                    <!-- Subtotal -->
+                    <TextView
+                        android:id="@+id/subtotal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="end"
+                        android:text="Subtotal: $0.00"
+                        android:textSize="18sp" />
+
+                    <!-- Tax -->
+                    <TextView
+                        android:id="@+id/tax"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="end"
+                        android:text="Tax: $0.00"
+                        android:textSize="18sp" />
+
+                    <!-- Total -->
+                    <TextView
+                        android:id="@+id/total"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="0dp"
+                        android:gravity="end"
+                        android:text="Total: $0.00"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Action Buttons -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="horizontal">
+
+                    <!-- Remove Item Button (now comes first) -->
+                    <Button
+                        android:id="@+id/remove_button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:text="Remove Item" />
+
+                    <!-- Checkout Button (now comes second) -->
+                    <Button
+                        android:id="@+id/checkout_button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Checkout" />
+
+                </LinearLayout>
+
+                <!-- Action Buttons for navigation -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <!-- Back Button -->
+                    <Button
+                        android:id="@+id/backButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:text="Back" />
+
+                    <!-- Continue Button -->
+                    <Button
+                        android:id="@+id/continueButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Continue" />
+                </LinearLayout>
+
             </LinearLayout>
 
-            <!-- Action Buttons -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:orientation="horizontal">
-
-                <!-- Remove Item Button (now comes first) -->
-                <Button
-                    android:id="@+id/remove_button"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:text="Remove Item" />
-
-                <!-- Checkout Button (now comes second) -->
-                <Button
-                    android:id="@+id/checkout_button"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Checkout" />
-
-            </LinearLayout>
-
-            <!-- Action Buttons for navigation -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <!-- Back Button -->
-                <Button
-                    android:id="@+id/backButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:text="Back" />
-
-                <!-- Continue Button -->
-                <Button
-                    android:id="@+id/continueButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Continue" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </ScrollView>
+        </ScrollView>
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

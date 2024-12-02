@@ -6,124 +6,129 @@
     android:layout_height="match_parent"
     tools:context=".OrderHistoryActivity">
 
-    <!-- X Button (Close/Return to Main Menu) at Top Right -->
-    <ImageButton
-        android:id="@+id/closeButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:src="@android:drawable/ic_menu_close_clear_cancel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- ScrollView to make the content scrollable -->
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
-        <!-- LinearLayout for all content inside the ScrollView -->
-        <LinearLayout
+        <!-- X Button (Close/Return to Main Menu) at Top Right -->
+        <ImageButton
+            android:id="@+id/closeButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end|top"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:elevation="4dp"
+            android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
+        <!-- ScrollView to make the content scrollable -->
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-            <!-- Order History Title -->
-            <TextView
-                android:id="@+id/order_history_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:text="Order History"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <!-- ListView to display previous orders -->
-            <ListView
-                android:id="@+id/order_history_list_view"
-                android:layout_width="match_parent"
-                android:layout_height="434dp"
-                android:layout_marginBottom="16dp"
-                android:divider="@android:color/darker_gray"
-                android:dividerHeight="1dp"
-                android:paddingBottom="16dp" />
-
-            <!-- Total Price Section -->
+            <!-- LinearLayout for all content inside the ScrollView -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <!-- Spinner for selecting previous orders -->
-                <Spinner
-                    android:id="@+id/order_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:minHeight="48dp"
-                    android:spinnerMode="dropdown" />
-
-                <!-- Total -->
+                <!-- Order History Title -->
                 <TextView
-                    android:id="@+id/total"
+                    android:id="@+id/order_history_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:text="Order History"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <!-- ListView to display previous orders -->
+                <ListView
+                    android:id="@+id/order_history_list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="434dp"
+                    android:layout_marginBottom="16dp"
+                    android:divider="@android:color/darker_gray"
+                    android:dividerHeight="1dp"
+                    android:paddingBottom="16dp" />
+
+                <!-- Total Price Section -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="0dp"
-                    android:gravity="end"
-                    android:text="Total: $0.00"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <!-- Action Buttons -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <!-- Cancel Order Button -->
-                <Button
-                    android:id="@+id/cancel_order_button"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:layout_weight="1"
-                    android:text="Cancel Order" />
+                    android:orientation="vertical">
+
+                    <!-- Spinner for selecting previous orders -->
+                    <Spinner
+                        android:id="@+id/order_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:minHeight="48dp"
+                        android:spinnerMode="dropdown" />
+
+                    <!-- Total -->
+                    <TextView
+                        android:id="@+id/total"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="0dp"
+                        android:gravity="end"
+                        android:text="Total: $0.00"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Action Buttons -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Cancel Order Button -->
+                    <Button
+                        android:id="@+id/cancel_order_button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:layout_weight="1"
+                        android:text="Cancel Order" />
+                </LinearLayout>
+
+                <!-- Action Buttons for navigation -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <!-- Back Button -->
+                    <Button
+                        android:id="@+id/backButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:text="Back" />
+
+                    <!-- Continue Button -->
+                    <Button
+                        android:id="@+id/continueButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Continue" />
+                </LinearLayout>
+
             </LinearLayout>
 
-            <!-- Action Buttons for navigation -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <!-- Back Button -->
-                <Button
-                    android:id="@+id/backButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:text="Back" />
-
-                <!-- Continue Button -->
-                <Button
-                    android:id="@+id/continueButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Continue" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </ScrollView>
+        </ScrollView>
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

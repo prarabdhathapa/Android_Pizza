@@ -6,119 +6,124 @@
     android:layout_height="match_parent"
     tools:context=".CreatePizzaActivity">
 
-    <!-- X Button (Close/Return to Main Menu) at Top Right -->
-    <ImageButton
-        android:id="@+id/closeButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:src="@android:drawable/ic_menu_close_clear_cancel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- ScrollView to make the content scrollable -->
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
-        <!-- LinearLayout for all content inside the ScrollView -->
-        <LinearLayout
+        <!-- X Button (Close/Return to Main Menu) at Top Right -->
+        <ImageButton
+            android:id="@+id/closeButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end|top"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:elevation="4dp"
+            android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
+        <!-- ScrollView to make the content scrollable -->
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-            <!-- Title for Pizza Creation -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:text="Create Your Pizza"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <!-- Horizontal RecyclerView for pizza options -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/pizzaRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="208dp"
-                android:layout_marginBottom="17dp"
-                android:orientation="horizontal" />
-
-            <!-- Vertical RecyclerView for toppings -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/toppingRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="208dp"
-                android:layout_marginBottom="16dp" />
-
+            <!-- LinearLayout for all content inside the ScrollView -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <!-- Spinner for pizza sizes -->
-                <Spinner
-                    android:id="@+id/order_spinner"
+                <!-- Title for Pizza Creation -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:text="Create Your Pizza"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <!-- Horizontal RecyclerView for pizza options -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/pizzaRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="208dp"
+                    android:layout_marginBottom="17dp"
+                    android:orientation="horizontal" />
+
+                <!-- Vertical RecyclerView for toppings -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/toppingRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="208dp"
+                    android:layout_marginBottom="16dp" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:minHeight="48dp"
-                    android:spinnerMode="dropdown" />
+                    android:orientation="vertical">
 
-                <!-- Subtotal -->
-                <TextView
-                    android:id="@+id/price"
+                    <!-- Spinner for pizza sizes -->
+                    <Spinner
+                        android:id="@+id/order_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:minHeight="48dp"
+                        android:spinnerMode="dropdown" />
+
+                    <!-- Subtotal -->
+                    <TextView
+                        android:id="@+id/price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="0dp"
+                        android:gravity="end"
+                        android:text="Price: $0.00"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Add to Order Button -->
+                <Button
+                    android:id="@+id/addToOrderButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="0dp"
-                    android:gravity="end"
-                    android:text="Price: $0.00"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:layout_marginBottom="16dp"
+                    android:text="Add to Order" />
+
+                <!-- Action Buttons for navigation -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <!-- Back Button -->
+                    <Button
+                        android:id="@+id/backButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:text="Back" />
+
+                    <!-- Continue Button -->
+                    <Button
+                        android:id="@+id/continueButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Continue" />
+                </LinearLayout>
+
             </LinearLayout>
 
-            <!-- Add to Order Button -->
-            <Button
-                android:id="@+id/addToOrderButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="Add to Order" />
+        </ScrollView>
 
-            <!-- Action Buttons for navigation -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <!-- Back Button -->
-                <Button
-                    android:id="@+id/backButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:text="Back" />
-
-                <!-- Continue Button -->
-                <Button
-                    android:id="@+id/continueButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Continue" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </ScrollView>
-
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
