@@ -1,5 +1,6 @@
 package src;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -73,7 +74,39 @@ public class CreatePizzaActivity extends AppCompatActivity implements PizzaAdapt
     }
 
     private void createPizzaOrder() {
+        if(selectedPizza == null){
+            showAlert("Please select a pizza");
+            return;
+        }
+        if(size == null){
+            showAlert("Please select size");
+            return;
+        }
 
+        Pizza pizza = selectedPizza;
+        Pizzeria.getCurrentOrder().addPizza(selectedPizza);     //should add pizza to global class
+        Toast.makeText(this, pizza.getName() + " has been added to your order", Toast.LENGTH_SHORT).show();
+
+        resetSelection();
+    }
+
+    private void resetSelection(){
+        //Dont know if it make sense to create these methods yet
+        // pizzaAdapter.setSelectedPizza(null);
+        // toppingAdapter.clearSelection();
+        sizeSpinner.setSelection(0);
+        selectedPizza = null;
+        size = null;
+        updatePrice();
+    }
+
+
+    private void showAlert(String message){
+        new AlertDialog.Builder(this)
+                .setTitle("Error")
+                .setMessage(message)
+                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 
     private void toggleToppingSelection() {
