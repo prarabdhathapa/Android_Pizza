@@ -3,6 +3,8 @@ package src;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -18,24 +20,22 @@ import java.util.ArrayList;
 
 import src.pizzeria.*;
 
-public class CreatePizzaActivity extends AppCompatActivity implements PizzaAdapter.OnPizzaClickListener {
+public class CreatePizzaActivity extends AppCompatActivity implements PizzaAdapter.OnPizzaClickListener, ToppingsAdapter.OnToppingClickListener {
 
     private RecyclerView pizzaRecyclerView;
+    private PizzaAdapter pizzaAdapter;
     private RecyclerView toppingRecyclerView;
-    private Button addToOrderButton;
+    private ToppingsAdapter toppingAdapter;
     private Spinner sizeSpinner;
     private TextView priceTextView;
-
-    private PizzaAdapter pizzaAdapter;
-    private ToppingsAdapter toppingAdapter;
-
-    private Pizza selectedPizza = null; // To hold the selected pizza
+    private Button addToOrderButton;
+    private Pizza selectedPizza = null;
+    private Size size = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_pizza);
-
         pizzaRecyclerView = findViewById(R.id.pizzaRecyclerView);
         toppingRecyclerView = findViewById(R.id.toppingRecyclerView);
         addToOrderButton = findViewById(R.id.addToOrderButton);
@@ -44,19 +44,27 @@ public class CreatePizzaActivity extends AppCompatActivity implements PizzaAdapt
 
         setupPizzaRecyclerView();
         setupToppingRecyclerView();
+        setupSizeSpinner();
 
-        // Set onClick listener for Add to Order button
+        sizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                String selectedSize = (String) parentView.getItemAtPosition(position);
+                size = Size.fromString(selectedSize);
+                selectedPizza.setSize(size);
+                updatePrice();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+            }
+        });
+
         addToOrderButton.setOnClickListener(v -> {
             if (selectedPizza == null) {
                 Toast.makeText(CreatePizzaActivity.this, "Please select a pizza.", Toast.LENGTH_SHORT).show();
                 return;
             }
-
-            ArrayList<Toppings> selectedToppings = toppingAdapter.getSelectedToppings();
-            String selectedSize = sizeSpinner.getSelectedItem().toString();
-
-            createPizzaOrder(selectedPizza, selectedToppings, selectedSize);
-            navigateToCurrentOrder();
+            createPizzaOrder();
         });
 
         findViewById(R.id.closeButton).setOnClickListener(v -> navigateToMain());
@@ -64,28 +72,51 @@ public class CreatePizzaActivity extends AppCompatActivity implements PizzaAdapt
         findViewById(R.id.continueButton).setOnClickListener(v -> navigateToCurrentOrder());
     }
 
+    private void createPizzaOrder() {
+        // Logic to create pizza order
+    }
+
+    private void toggleToppingSelection() {
+        if (selectedPizza != null && (selectedPizza.getName().equals("New York Build Your Own") || selectedPizza.getName().equals("Chicago Build Your Own"))) {
+            toppingAdapter.enableSelection(true);
+        } else {
+            toppingAdapter.enableSelection(false);
+        }
+        toppingAdapter.setSelectedToppings(selectedPizza.getToppings());
+    }
+
+    private void updatePrice() {
+        if (selectedPizza == null) return;
+        double price = selectedPizza.price();
+        priceTextView.setText("Price: $" + String.format("%.2f", price));
+    }
+
     private void setupPizzaRecyclerView() {
         ArrayList<Pizza> pizzas = new ArrayList<>();
         PizzaFactory nyFactory = new NewYorkPizza();
         PizzaFactory chiFactory = new ChicagoPizza();
 
-        // Add pizzas, including the "Build Your Own"
+        pizzas.add(nyFactory.createBuildYourOwn());
         pizzas.add(nyFactory.createDeluxe());
         pizzas.add(nyFactory.createMeatzza());
         pizzas.add(nyFactory.createBBQChicken());
-        pizzas.add(nyFactory.createBuildYourOwn()); // This is the "Build Your Own" pizza
+        pizzas.add(chiFactory.createBuildYourOwn());
         pizzas.add(chiFactory.createDeluxe());
         pizzas.add(chiFactory.createMeatzza());
         pizzas.add(chiFactory.createBBQChicken());
-        pizzas.add(chiFactory.createBuildYourOwn()); // This is also the "Build Your Own" pizza
 
-        pizzaAdapter = new PizzaAdapter(pizzas, this); // Pass the listener to the adapter
+        selectedPizza = pizzas.get(0);
+        size = selectedPizza.getSize();
+        updatePrice();
+
+        pizzaAdapter = new PizzaAdapter(pizzas, this);
         pizzaRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         pizzaRecyclerView.setAdapter(pizzaAdapter);
     }
 
     private void setupToppingRecyclerView() {
         ArrayList<Toppings> toppings = new ArrayList<>();
+
         toppings.add(Toppings.SAUSAGE);
         toppings.add(Toppings.PEPPERONI);
         toppings.add(Toppings.GREENPEPPER);
@@ -102,30 +133,38 @@ public class CreatePizzaActivity extends AppCompatActivity implements PizzaAdapt
         toppings.add(Toppings.OLIVES);
         toppings.add(Toppings.RANCH);
 
-        toppingAdapter = new ToppingsAdapter(toppings);
+        toppingAdapter = new ToppingsAdapter(toppings, this);
         toppingRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         toppingRecyclerView.setAdapter(toppingAdapter);
     }
 
-    // Implementing the OnPizzaClickListener interface
+    private void setupSizeSpinner() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.pizza_sizes));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sizeSpinner.setAdapter(adapter);
+        int position = adapter.getPosition(selectedPizza.getSize().getSize());
+        sizeSpinner.setSelection(position);
+    }
+
     @Override
     public void onPizzaClick(Pizza pizza) {
-        selectedPizza = pizza; // Set the selected pizza
-        toggleToppingSelection(); // Enable or disable toppings based on pizza type
+        selectedPizza = pizza;
+        selectedPizza.setSize(size);
+        updatePrice();
+        toggleToppingSelection();
     }
 
-    // Method to enable or disable toppings selection based on the selected pizza
-    private void toggleToppingSelection() {
-        if (selectedPizza != null && selectedPizza.getName().equals("Build Your Own")) {
-            toppingRecyclerView.setVisibility(View.VISIBLE); // Show toppings
-        } else {
-            toppingRecyclerView.setVisibility(View.GONE); // Hide toppings if it's not a Build Your Own pizza
-            toppingAdapter.clearSelectedToppings(); // Optionally clear previously selected toppings
+    @Override
+    public void onToppingClick(Toppings topping) {
+        if (selectedPizza != null) {
+            if (selectedPizza.getToppings().contains(topping)) {
+                selectedPizza.removeTopping(topping);
+            } else {
+                selectedPizza.addTopping(topping);
+            }
+            updatePrice();
+            toppingAdapter.notifyDataSetChanged();
         }
-    }
-
-    private void createPizzaOrder(Pizza selectedPizza, ArrayList<Toppings> selectedToppings, String selectedSize) {
-        // Logic to create a pizza order with selected pizza, toppings, and size
     }
 
     private void navigateToMain() {

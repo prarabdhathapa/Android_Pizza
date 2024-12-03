@@ -1,6 +1,5 @@
 package src;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,81 +15,89 @@ import java.util.ArrayList;
 
 import src.pizzeria.*;
 
-public class ToppingsAdapter extends RecyclerView.Adapter<ToppingsAdapter.ToppingViewHolder> {
+public class ToppingsAdapter extends RecyclerView.Adapter<ToppingsAdapter.ToppingsViewHolder> {
 
-    private ArrayList<Toppings> toppingList;
-    private ArrayList<Toppings> selectedToppings = new ArrayList<>(); // List to track selected toppings
-    private static final int MAX_TOPPINGS = 7; // Limit of 7 toppings
-    private boolean isSelectionEnabled = false; // Flag to check if toppings can be selected
+    private final ArrayList<Toppings> toppings;
+    private final ArrayList<Toppings> selectedToppings = new ArrayList<>();
+    private static final int MAX_TOPPINGS = 7;
+    private boolean isSelectionEnabled = true;
+    private OnToppingClickListener listener;
 
-    public ToppingsAdapter(ArrayList<Toppings> toppingList) {
-        this.toppingList = toppingList;
+    public ToppingsAdapter(ArrayList<Toppings> toppings, OnToppingClickListener listener) {
+        this.toppings = toppings;
+        this.listener = listener;
     }
 
     @Override
-    public ToppingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ToppingsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_toppings, parent, false);
-        return new ToppingViewHolder(view);
+        return new ToppingsViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ToppingViewHolder holder, int position) {
-        Toppings topping = toppingList.get(position);
+    public void onBindViewHolder(ToppingsViewHolder holder, int position) {
+        Toppings topping = toppings.get(position);
         holder.nameTextView.setText(topping.getName());
+        holder.checkBox.setTag(topping);
 
-        // Set the checkbox state based on whether the topping is selected
+        // Check if this topping is selected
         holder.checkBox.setChecked(selectedToppings.contains(topping));
 
-        // If toppings are not allowed, disable the checkbox
+        // Enable or disable checkbox based on selection state
         holder.checkBox.setEnabled(isSelectionEnabled);
+    }
 
-        // Handle checkbox click event to select/deselect topping
-        if (isSelectionEnabled) {
-            holder.checkBox.setOnClickListener(v -> {
-                if (holder.checkBox.isChecked()) {
-                    if (selectedToppings.size() < MAX_TOPPINGS) {
-                        selectedToppings.add(topping);
-                    } else {
-                        Toast.makeText(v.getContext(), "You can only select up to 7 toppings.", Toast.LENGTH_SHORT).show();
-                        holder.checkBox.setChecked(false); // Uncheck if the limit is reached
-                    }
-                } else {
-                    selectedToppings.remove(topping);
-                }
-            });
-        }
+    public void setSelectedToppings(ArrayList<Toppings> selectedToppings) {
+        this.selectedToppings.clear();
+        this.selectedToppings.addAll(selectedToppings);
+        notifyDataSetChanged();
+    }
+
+    public void enableSelection(boolean isEnabled) {
+        isSelectionEnabled = isEnabled;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return toppingList.size();
+        return toppings.size();
     }
 
-    // Method to get the list of selected toppings
-    public ArrayList<Toppings> getSelectedToppings() {
-        return selectedToppings;
+    public interface OnToppingClickListener {
+        void onToppingClick(Toppings topping);
     }
 
-    // Method to clear selected toppings when toppings are disabled
-    public void clearSelectedToppings() {
-        selectedToppings.clear();
-        notifyDataSetChanged();
-    }
-
-    // Method to enable or disable topping selection
-    public void setSelectionEnabled(boolean isEnabled) {
-        isSelectionEnabled = isEnabled;
-        notifyDataSetChanged(); // Update the UI when selection state changes
-    }
-
-    public static class ToppingViewHolder extends RecyclerView.ViewHolder {
+    // ViewHolder class
+    public class ToppingsViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
         CheckBox checkBox;
 
-        public ToppingViewHolder(View itemView) {
+        public ToppingsViewHolder(View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.toppingName);
             checkBox = itemView.findViewById(R.id.toppingCheckbox);
+
+            // Click listener to handle topping selection
+            checkBox.setOnClickListener(v -> {
+                Toppings topping = (Toppings) v.getTag();
+                int position = getBindingAdapterPosition();
+                if (position == RecyclerView.NO_POSITION) {
+                    return;
+                }
+                if (checkBox.isChecked()) {
+                    if (selectedToppings.size() < MAX_TOPPINGS) {
+                        selectedToppings.add(topping); // Add topping
+                        listener.onToppingClick(topping); // Notify listener
+                    } else {
+                        Toast.makeText(v.getContext(), "You can only select up to 7 toppings.", Toast.LENGTH_SHORT).show();
+                        checkBox.setChecked(false);  // Uncheck if the limit is exceeded
+                    }
+                } else {
+                    selectedToppings.remove(topping); // Remove topping
+                    listener.onToppingClick(topping); // Notify listener
+                }
+                notifyItemChanged(position);
+            });
         }
     }
 }

@@ -17,13 +17,13 @@ import src.pizzeria.*;
 
 public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHolder> {
 
-    private ArrayList<Pizza> pizzaList;
-    private Pizza selectedPizza = null;
-    private OnPizzaClickListener onPizzaClickListener; // Reference to listener interface
+    private ArrayList<Pizza> pizzas;
+    private int selectedPosition = 0;
+    private OnPizzaClickListener onPizzaClickListener;
 
-    public PizzaAdapter(ArrayList<Pizza> pizzaList, OnPizzaClickListener listener) {
-        this.pizzaList = pizzaList;
-        this.onPizzaClickListener = listener; // Set the listener
+    public PizzaAdapter(ArrayList<Pizza> pizzas, OnPizzaClickListener listener) {
+        this.pizzas = pizzas;
+        this.onPizzaClickListener = listener;
     }
 
     @Override
@@ -34,53 +34,54 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
 
     @Override
     public void onBindViewHolder(PizzaViewHolder holder, int position) {
-        Pizza pizza = pizzaList.get(position);
+        Pizza pizza = pizzas.get(position);
         holder.nameTextView.setText(pizza.getName());
-        holder.imageImageView.setImageResource(pizza.getImageResID());
+        holder.pizzaImageView.setImageResource(pizza.getImageResID());
 
-        // Set the selection behavior (when clicked)
+        // Highlight the selected pizza
+        if (selectedPosition == position) {
+            holder.itemView.setBackgroundColor(Color.LTGRAY);
+        } else {
+            holder.itemView.setBackgroundColor(Color.WHITE);
+        }
+
         holder.itemView.setOnClickListener(v -> {
-            selectedPizza = pizza;  // Set the selected pizza
-            notifyDataSetChanged(); // Notify adapter to update UI (e.g., highlight selected item)
+            int clickedPosition = holder.getBindingAdapterPosition();
+            if (clickedPosition != RecyclerView.NO_POSITION) {
+                if (selectedPosition != clickedPosition) {
+                    // Update selected position
+                    int previousSelectedPosition = selectedPosition;
+                    selectedPosition = clickedPosition;
 
-            // Notify the activity about the click
-            if (onPizzaClickListener != null) {
-                onPizzaClickListener.onPizzaClick(pizza);
+                    // Notify only the item that was previously selected and the newly selected item
+                    notifyItemChanged(previousSelectedPosition);
+                    notifyItemChanged(selectedPosition);
+
+                    if (onPizzaClickListener != null) {
+                        onPizzaClickListener.onPizzaClick(pizza);
+                    }
+                }
             }
         });
-
-        // Visual cue for the selected pizza
-        if (selectedPizza == pizza) {
-            holder.itemView.setBackgroundColor(Color.LTGRAY);  // Highlight selected item
-        } else {
-            holder.itemView.setBackgroundColor(Color.WHITE);  // Default state
-        }
     }
 
     @Override
     public int getItemCount() {
-        return pizzaList.size();
+        return pizzas.size();
     }
 
-    // Method to get the selected pizza
-    public Pizza getSelectedPizza() {
-        return selectedPizza;
-    }
-
-    // Interface for the click listener
     public interface OnPizzaClickListener {
         void onPizzaClick(Pizza pizza);
     }
 
     public class PizzaViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
-        ImageView imageImageView;
+        ImageView pizzaImageView;
 
         public PizzaViewHolder(View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.pizzaName);
-            imageImageView = itemView.findViewById(R.id.pizzaImage);
+            pizzaImageView = itemView.findViewById(R.id.pizzaImage);
         }
     }
 }
-

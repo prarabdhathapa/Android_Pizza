@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">CS213_Project_5</string>
+
+    <string-array name="pizza_sizes">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+    </string-array>
+
 </resources>
