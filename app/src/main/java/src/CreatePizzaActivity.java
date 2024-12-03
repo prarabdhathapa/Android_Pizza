@@ -73,7 +73,7 @@ public class CreatePizzaActivity extends AppCompatActivity implements PizzaAdapt
     }
 
     private void createPizzaOrder() {
-        // Logic to create pizza order
+
     }
 
     private void toggleToppingSelection() {
