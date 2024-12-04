@@ -3,6 +3,7 @@ package src;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cs213_project_5.R;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -38,9 +41,21 @@ public class CurrentOrderActivity extends AppCompatActivity {
 
         orderRecyclerView.setAdapter(pizzaAdapter);
 
+        TextView subTotalView = findViewById(R.id.subtotal);
+        TextView taxView = findViewById(R.id.tax);
+        TextView totalView = findViewById(R.id.total);
+
+        updatePriceDisplay(subTotalView, taxView, totalView);
+
         findViewById(R.id.closeButton).setOnClickListener(v -> navigateToMain());
         findViewById(R.id.backButton).setOnClickListener(v -> navigateToCreatePizza());
         findViewById(R.id.continueButton).setOnClickListener(v -> navigateToOrderHistory());
+    }
+
+    private void updatePriceDisplay(TextView subtotal, TextView tax, TextView total){
+        subtotal.setText(String.format("Subtotal: $%.2f", Pizzeria.calculateSubtotal()));
+        tax.setText(String.format("Tax: $%.2f", Pizzeria.calculateTax()));
+        total.setText(String.format("Total: $%.2f", Pizzeria.calculateTotal()));
     }
 
     // Method to navigate to Main activity
