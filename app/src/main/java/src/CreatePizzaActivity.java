@@ -65,7 +65,10 @@ public class CreatePizzaActivity extends AppCompatActivity implements PizzaAdapt
                 Toast.makeText(CreatePizzaActivity.this, "Please select a pizza.", Toast.LENGTH_SHORT).show();
                 return;
             }
-            createPizzaOrder();
+
+            Pizzeria.getInstance().getCurrentOrder().addPizza(selectedPizza);
+            Toast.makeText(this, selectedPizza.getName() + " added to your order", Toast.LENGTH_SHORT).show();
+            //createPizzaOrder();
         });
 
         findViewById(R.id.closeButton).setOnClickListener(v -> navigateToMain());
@@ -95,8 +98,6 @@ public class CreatePizzaActivity extends AppCompatActivity implements PizzaAdapt
         // pizzaAdapter.setSelectedPizza(null);
         // toppingAdapter.clearSelection();
         sizeSpinner.setSelection(0);
-        selectedPizza = null;
-        size = null;
         updatePrice();
     }
 

@@ -23,6 +23,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
 
     private RecyclerView orderRecyclerView;
     private PizzaAdapter pizzaAdapter;
+    private Pizza selectedPizza = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +36,15 @@ public class CurrentOrderActivity extends AppCompatActivity {
         Order currentOrder = Pizzeria.getCurrentOrder();
         ArrayList<Pizza> pizzas = currentOrder.getPizzas();
 
-        pizzaAdapter = new PizzaAdapter(pizzas, pizza ->
-                Toast.makeText(this, "Selected: " + pizza.getName(), Toast.LENGTH_SHORT).show()
-                );
+        //preset for cases of orders with only one pizza
+        if (pizzas.size() == 1){
+            selectedPizza = pizzas.get(0);
+        }
+
+        pizzaAdapter = new PizzaAdapter(pizzas, pizza ->{
+                selectedPizza = pizza;
+                Toast.makeText(this, "Selected: " + pizza.getName(), Toast.LENGTH_SHORT).show();
+        });
 
         orderRecyclerView.setAdapter(pizzaAdapter);
 
@@ -50,6 +57,45 @@ public class CurrentOrderActivity extends AppCompatActivity {
         findViewById(R.id.closeButton).setOnClickListener(v -> navigateToMain());
         findViewById(R.id.backButton).setOnClickListener(v -> navigateToCreatePizza());
         findViewById(R.id.continueButton).setOnClickListener(v -> navigateToOrderHistory());
+
+
+        findViewById(R.id.remove_button).setOnClickListener(v -> {
+            if (selectedPizza != null) {
+                int selectedPizzaPosition = pizzas.indexOf(selectedPizza);
+
+                pizzas.remove(selectedPizza);
+                pizzaAdapter.notifyDataSetChanged();
+                updatePriceDisplay(subTotalView, taxView, totalView);
+
+                // Handle the case when there are still pizzas left
+                if (!pizzas.isEmpty()) {
+                    if (selectedPizzaPosition == 0) {
+                        // If the first pizza was removed, select the new first pizza
+                        selectedPizza = pizzas.get(0);
+                    } else {
+                        // Otherwise, select the next pizza in the list
+                        selectedPizza = pizzas.get(Math.min(selectedPizzaPosition, pizzas.size() - 1));
+                    }
+                    pizzaAdapter.notifyDataSetChanged(); // Ensure the adapter is updated
+                } else {
+                    selectedPizza = null;  // Reset if no pizzas are left
+                    noPizzaAlert();        // Show alert if no pizzas are left
+                }
+
+                Toast.makeText(this, "Pizza removed", Toast.LENGTH_SHORT).show();
+            } else {
+                noPizzaAlert();
+            }
+        });
+
+    }
+
+    private void noPizzaAlert(){
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("No Pizza Selected")
+                .setMessage("There is no pizza currently selected.")
+                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 
     private void updatePriceDisplay(TextView subtotal, TextView tax, TextView total){

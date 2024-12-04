@@ -5,16 +5,20 @@ import java.util.ArrayList;
 import src.pizzeria.*;
 
 public class Pizzeria {
-
-    private static Pizzeria instance;
+    private static Pizzeria instance = new Pizzeria();
     private ArrayList<Order> orders = new ArrayList<>();
     private Order order;
     private int id = 1;
-    private static Order currentOrder = null;
+    private static Order currentOrder;
     private static int orderNum = 1;
-    private static final double taxRate = .06625;
+    private static final double TAX_RATE = .06625;
     private Pizzeria() {
         order = new Order(id); // Initialize a new order when the singleton is first created
+        currentOrder = new Order(orderNum++);
+    }
+
+    public static Pizzeria getInstance(){
+        return instance;
     }
 
     public void addPizzaToOrder(Pizza pizza) {
@@ -23,9 +27,6 @@ public class Pizzeria {
 
     //gets current order to be updated by pizzas from CreatePizzaActivity and accessed from CurrentOrderActivity
     public static Order getCurrentOrder(){
-        if(currentOrder == null){
-            currentOrder = new Order(orderNum++);
-        }
         return currentOrder;
     }
     public static void resetOrder(){
@@ -41,7 +42,7 @@ public class Pizzeria {
     }
 
     public static double calculateTax(){
-        return calculateSubtotal() * taxRate;
+        return calculateSubtotal() * TAX_RATE;
     }
 
     public static double calculateTotal(){
