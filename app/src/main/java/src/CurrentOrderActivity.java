@@ -36,10 +36,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
         Order currentOrder = Pizzeria.getCurrentOrder();
         ArrayList<Pizza> pizzas = currentOrder.getPizzas();
 
-        //preset for cases of orders with only one pizza
-        if (pizzas.size() == 1){
-            selectedPizza = pizzas.get(0);
-        }
+        selectedPizza = null;
 
         pizzaAdapter = new PizzaAdapter(pizzas, pizza ->{
                 selectedPizza = pizza;
@@ -47,6 +44,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
         });
 
         orderRecyclerView.setAdapter(pizzaAdapter);
+        pizzaAdapter.resetSelection();
 
         TextView subTotalView = findViewById(R.id.subtotal);
         TextView taxView = findViewById(R.id.tax);
@@ -79,7 +77,6 @@ public class CurrentOrderActivity extends AppCompatActivity {
                     pizzaAdapter.notifyDataSetChanged(); // Ensure the adapter is updated
                 } else {
                     selectedPizza = null;  // Reset if no pizzas are left
-                    noPizzaAlert();        // Show alert if no pizzas are left
                 }
 
                 Toast.makeText(this, "Pizza removed", Toast.LENGTH_SHORT).show();
@@ -89,6 +86,8 @@ public class CurrentOrderActivity extends AppCompatActivity {
         });
 
     }
+
+
 
     private void noPizzaAlert(){
         new androidx.appcompat.app.AlertDialog.Builder(this)

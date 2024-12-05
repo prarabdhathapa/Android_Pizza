@@ -64,6 +64,13 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
             }
         });
     }
+    public void resetSelection() {
+        int previousSelectedPosition = selectedPosition;
+        selectedPosition = RecyclerView.NO_POSITION;
+        if (previousSelectedPosition != RecyclerView.NO_POSITION) {
+            notifyItemChanged(previousSelectedPosition);
+        }
+    }
 
     @Override
     public int getItemCount() {
