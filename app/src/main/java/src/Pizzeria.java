@@ -26,11 +26,23 @@ public class Pizzeria {
     }
 
     //gets current order to be updated by pizzas from CreatePizzaActivity and accessed from CurrentOrderActivity
-    public static Order getCurrentOrder(){
+    public static Order getCurrentOrder() {
+        if (currentOrder == null) {
+            currentOrder = new Order(orderNum++);
+        }
         return currentOrder;
     }
-    public static void resetOrder(){
+    private static ArrayList<Order> completedOrders = new ArrayList<>();
+
+    public static void addCompleteOrders(Order order) {
+        completedOrders.add(order);
+    }
+    public static void resetCurrentOrder() {
         currentOrder = new Order(orderNum++);
+    }
+
+    public static ArrayList<Order> getCompletedOrders(){
+        return completedOrders;
     }
 
     public static double calculateSubtotal(){

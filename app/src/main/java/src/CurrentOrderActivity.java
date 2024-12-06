@@ -55,9 +55,23 @@ public class CurrentOrderActivity extends AppCompatActivity {
         findViewById(R.id.closeButton).setOnClickListener(v -> navigateToMain());
         findViewById(R.id.backButton).setOnClickListener(v -> navigateToCreatePizza());
         findViewById(R.id.continueButton).setOnClickListener(v -> navigateToOrderHistory());
+        findViewById(R.id.remove_button).setOnClickListener(v -> removePizza(pizzas, subTotalView, taxView, totalView));
+        findViewById(R.id.checkout_button).setOnClickListener(v -> checkoutPizza());
+    }
 
+    private void checkoutPizza(){
+        Order currentOrder = Pizzeria.getCurrentOrder();
+        if(currentOrder == null || currentOrder.getPizzas().isEmpty()) {
+            noPizzaAlert();
+            return;
+        }
 
-        findViewById(R.id.remove_button).setOnClickListener(v -> {
+        Pizzeria.addCompleteOrders(currentOrder);
+        Pizzeria.resetCurrentOrder();
+
+        confirmationAlert();
+    }
+    private void removePizza(ArrayList<Pizza> pizzas, TextView subTotalView, TextView taxView, TextView totalView){
             if (selectedPizza != null) {
                 int selectedPizzaPosition = pizzas.indexOf(selectedPizza);
 
@@ -83,16 +97,22 @@ public class CurrentOrderActivity extends AppCompatActivity {
             } else {
                 noPizzaAlert();
             }
-        });
-
     }
 
-
-
+    private void confirmationAlert(){
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Order Added")
+                .setMessage("Your order has been added and can be seen in order history, continue?")
+                .setPositiveButton("OK", (dialog, which) -> {
+                    dialog.dismiss();
+                    navigateToOrderHistory();
+                })
+                .show();
+    }
     private void noPizzaAlert(){
         new androidx.appcompat.app.AlertDialog.Builder(this)
-                .setTitle("No Pizza Selected")
-                .setMessage("There is no pizza currently selected.")
+                .setTitle("No Pizza in Current Order")
+                .setMessage("There is no pizza currently in this order")
                 .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
                 .show();
     }

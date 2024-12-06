@@ -25,6 +25,13 @@ public class Order {
         return pizzas;
     }
 
+    public double getTotalPrice(){
+        double finalPrice = 0.0;
+        for(int i = 0; i < pizzas.size(); i++){
+            finalPrice =finalPrice + pizzas.get(i).price();
+        }
+        return finalPrice;
+    }
     public void addPizza(Pizza newPizza) {
         pizzas.add(newPizza);
     }
