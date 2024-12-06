@@ -38,4 +38,20 @@
         android:textSize="16sp"
         android:gravity="center" />
 
+    <TextView
+        android:id="@+id/pizza_crust"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thin"
+        android:textSize="16sp"
+        android:gravity="center" />
+    <TextView
+        android:id="@+id/pizza_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$XXX"
+        android:textSize="16sp"
+        android:gravity="center" />
+
+
 </LinearLayout>

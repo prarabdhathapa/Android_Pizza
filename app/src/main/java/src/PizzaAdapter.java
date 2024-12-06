@@ -38,6 +38,9 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
         holder.nameTextView.setText(pizza.getName());
         holder.pizzaImageView.setImageResource(pizza.getImageResID());
         holder.pizzaSize.setText("Size: " + pizza.getSize()); // Set the pizza size
+        holder.pizzaCrust.setText("Crust: " + pizza.getCrust()); // Set the crust information
+        holder.pizzaPrice.setText(String.format("Sub Total: $%.2f", pizza.price()));
+
 
         if(pizza.getToppings().isEmpty()){
             holder.pizzaToppings.setText("No Toppings");
@@ -88,7 +91,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
     }
 
     public class PizzaViewHolder extends RecyclerView.ViewHolder {
-        TextView nameTextView, pizzaSize, pizzaToppings;
+        TextView nameTextView, pizzaSize, pizzaToppings, pizzaCrust, pizzaPrice;
         ImageView pizzaImageView;
 
         public PizzaViewHolder(View itemView) {
@@ -97,6 +100,9 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
             pizzaImageView = itemView.findViewById(R.id.pizzaImage);
             pizzaSize = itemView.findViewById(R.id.pizza_size);
             pizzaToppings = itemView.findViewById(R.id.pizza_toppings);
+            pizzaCrust = itemView.findViewById(R.id.pizza_crust);
+            pizzaPrice = itemView.findViewById(R.id.pizza_price);
+
         }
     }
 }
