@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.cs213_project_5.R;
 
 import java.util.ArrayList;
+
 import src.pizzeria.Order;
 import src.pizzeria.Pizza;
 
@@ -18,7 +19,7 @@ public class OrderAdapter extends ArrayAdapter<Order> {
     private Context context;
     private ArrayList<Order> orders;
 
-    public OrderAdapter(Context context, ArrayList<Order> orders) {
+    OrderAdapter(Context context, ArrayList<Order> orders) {
         super(context, R.layout.item_order, orders);
         this.context = context;
         this.orders = orders;

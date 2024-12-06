@@ -26,6 +26,7 @@
     <string name="defaultTopping">Topping Name</string>
     <string name="defaultPizza">Pizza Name</string>
     <string name="defaultSize">Size</string>
+    <string name="defaultCrust">Crust</string>
     <string name="defaultToppings">No Toppings</string>
     <string name="defaultOrderID">Order #</string>
     <string name="defaultPizzaDetails">Pizza Details Here</string>

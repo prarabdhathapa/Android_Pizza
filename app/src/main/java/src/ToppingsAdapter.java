@@ -16,10 +16,9 @@ import java.util.ArrayList;
 import src.pizzeria.*;
 
 public class ToppingsAdapter extends RecyclerView.Adapter<ToppingsAdapter.ToppingsViewHolder> {
-
+    private static final int MAX_TOPPINGS = 7;
     private final ArrayList<Toppings> toppings;
     private final ArrayList<Toppings> selectedToppings = new ArrayList<>();
-    private static final int MAX_TOPPINGS = 7;
     private boolean isSelectionEnabled = true;
     private OnToppingClickListener listener;
 

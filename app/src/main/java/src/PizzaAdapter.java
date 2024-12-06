@@ -21,7 +21,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
     private int selectedPosition = 0;
     private OnPizzaClickListener onPizzaClickListener;
 
-    public PizzaAdapter(ArrayList<Pizza> pizzas, OnPizzaClickListener listener) {
+    PizzaAdapter(ArrayList<Pizza> pizzas, OnPizzaClickListener listener) {
         this.pizzas = pizzas;
         this.onPizzaClickListener = listener;
     }
@@ -39,13 +39,13 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
         holder.pizzaImageView.setImageResource(pizza.getImageResID());
         holder.pizzaSize.setText("Size: " + pizza.getSize()); // Set the pizza size
         holder.pizzaCrust.setText("Crust: " + pizza.getCrust()); // Set the crust information
-        holder.pizzaPrice.setText(String.format("Sub Total: $%.2f", pizza.price()));
+        holder.pizzaPrice.setText(String.format("Subtotal: $%.2f", pizza.price()));
 
 
-        if(pizza.getToppings().isEmpty()){
+        if (pizza.getToppings().isEmpty()) {
             holder.pizzaToppings.setText("No Toppings");
-        } else{
-            holder.pizzaToppings.setText("Toppings: " + pizza.getToppings());
+        } else {
+            holder.pizzaToppings.setText("Toppings: " + pizza.printToppings());
         }
         // Highlight the selected pizza
         if (selectedPosition == position) {
@@ -73,6 +73,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
             }
         });
     }
+
     public void resetSelection() {
         int previousSelectedPosition = selectedPosition;
         selectedPosition = RecyclerView.NO_POSITION;

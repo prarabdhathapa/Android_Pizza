@@ -28,7 +28,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_current_order); // your XML layout ficurrent
+        setContentView(R.layout.activity_current_order);
 
         orderRecyclerView = findViewById(R.id.order_list_view);
         orderRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -38,7 +38,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
 
         selectedPizza = null;
 
-        pizzaAdapter = new PizzaAdapter(pizzas, pizza ->{
+        pizzaAdapter = new PizzaAdapter(pizzas, pizza -> {
             selectedPizza = pizza;
             Toast.makeText(this, "Selected: " + pizza.getName(), Toast.LENGTH_SHORT).show();
         });
@@ -59,9 +59,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
         findViewById(R.id.checkout_button).setOnClickListener(v -> checkoutPizza());
     }
 
-    private void checkoutPizza(){
+    private void checkoutPizza() {
         Order currentOrder = Pizzeria.getCurrentOrder();
-        if(currentOrder == null || currentOrder.getPizzas().isEmpty()) {
+        if (currentOrder == null || currentOrder.getPizzas().isEmpty()) {
             noPizzaAlert();
             return;
         }
@@ -71,7 +71,8 @@ public class CurrentOrderActivity extends AppCompatActivity {
 
         confirmationAlert();
     }
-    private void removePizza(ArrayList<Pizza> pizzas, TextView subTotalView, TextView taxView, TextView totalView){
+
+    private void removePizza(ArrayList<Pizza> pizzas, TextView subTotalView, TextView taxView, TextView totalView) {
         if (selectedPizza != null) {
             int selectedPizzaPosition = pizzas.indexOf(selectedPizza);
 
@@ -99,7 +100,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
         }
     }
 
-    private void confirmationAlert(){
+    private void confirmationAlert() {
         new androidx.appcompat.app.AlertDialog.Builder(this)
                 .setTitle("Order Added")
                 .setMessage("Your order has been successfully added! Continue to checkout?")
@@ -109,7 +110,8 @@ public class CurrentOrderActivity extends AppCompatActivity {
                 })
                 .show();
     }
-    private void noPizzaAlert(){
+
+    private void noPizzaAlert() {
         new androidx.appcompat.app.AlertDialog.Builder(this)
                 .setTitle("No Pizza in Current Order")
                 .setMessage("There is no pizza currently in this order")
@@ -117,25 +119,22 @@ public class CurrentOrderActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void updatePriceDisplay(TextView subtotal, TextView tax, TextView total){
+    private void updatePriceDisplay(TextView subtotal, TextView tax, TextView total) {
         subtotal.setText(String.format("Subtotal: $%.2f", Pizzeria.calculateSubtotal()));
         tax.setText(String.format("Tax: $%.2f", Pizzeria.calculateTax()));
         total.setText(String.format("Total: $%.2f", Pizzeria.calculateTotal()));
     }
 
-    // Method to navigate to Main activity
     private void navigateToMain() {
         Intent intent = new Intent(CurrentOrderActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
-    // Method to navigate to Create Pizza activity
     private void navigateToCreatePizza() {
         Intent intent = new Intent(CurrentOrderActivity.this, CreatePizzaActivity.class);
         startActivity(intent);
     }
 
-    // Method to navigate to Order History activity
     private void navigateToOrderHistory() {
         Intent intent = new Intent(CurrentOrderActivity.this, OrderHistoryActivity.class);
         startActivity(intent);

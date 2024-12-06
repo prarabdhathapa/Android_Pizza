@@ -42,11 +42,9 @@ public class CreatePizzaActivity extends AppCompatActivity implements PizzaAdapt
         addToOrderButton = findViewById(R.id.addToOrderButton);
         sizeSpinner = findViewById(R.id.order_spinner);
         priceTextView = findViewById(R.id.price);
-
         setupPizzaRecyclerView();
         setupToppingRecyclerView();
         setupSizeSpinner();
-
         sizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -55,59 +53,23 @@ public class CreatePizzaActivity extends AppCompatActivity implements PizzaAdapt
                 selectedPizza.setSize(size);
                 updatePrice();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
             }
         });
-
         addToOrderButton.setOnClickListener(v -> {
             if (selectedPizza == null) {
                 Toast.makeText(CreatePizzaActivity.this, "Please select a pizza.", Toast.LENGTH_SHORT).show();
                 return;
             }
-
             Pizzeria.getInstance().getCurrentOrder().addPizza(selectedPizza);
             Toast.makeText(this, selectedPizza.getName() + " added to your order", Toast.LENGTH_SHORT).show();
-            //createPizzaOrder();
         });
 
         findViewById(R.id.closeButton).setOnClickListener(v -> navigateToMain());
         findViewById(R.id.backButton).setOnClickListener(v -> navigateToOrderHistory());
         findViewById(R.id.continueButton).setOnClickListener(v -> navigateToCurrentOrder());
-    }
-
-    private void createPizzaOrder() {
-        if(selectedPizza == null){
-            showAlert("Please select a pizza");
-            return;
-        }
-        if(size == null){
-            showAlert("Please select size");
-            return;
-        }
-
-        Pizza pizza = selectedPizza;
-        Pizzeria.getCurrentOrder().addPizza(selectedPizza);     //should add pizza to global class
-        Toast.makeText(this, pizza.getName() + " has been added to your order", Toast.LENGTH_SHORT).show();
-
-        resetSelection();
-    }
-
-    private void resetSelection(){
-        //Dont know if it make sense to create these methods yet
-        // pizzaAdapter.setSelectedPizza(null);
-        // toppingAdapter.clearSelection();
-        sizeSpinner.setSelection(0);
-        updatePrice();
-    }
-
-
-    private void showAlert(String message){
-        new AlertDialog.Builder(this)
-                .setTitle("Error")
-                .setMessage(message)
-                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
-                .show();
     }
 
     private void toggleToppingSelection() {
@@ -180,6 +142,21 @@ public class CreatePizzaActivity extends AppCompatActivity implements PizzaAdapt
         sizeSpinner.setSelection(position);
     }
 
+    private void navigateToMain() {
+        Intent intent = new Intent(CreatePizzaActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    private void navigateToOrderHistory() {
+        Intent intent = new Intent(CreatePizzaActivity.this, OrderHistoryActivity.class);
+        startActivity(intent);
+    }
+
+    private void navigateToCurrentOrder() {
+        Intent intent = new Intent(CreatePizzaActivity.this, CurrentOrderActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onPizzaClick(Pizza pizza) {
         selectedPizza = pizza;
@@ -199,20 +176,5 @@ public class CreatePizzaActivity extends AppCompatActivity implements PizzaAdapt
             updatePrice();
             toppingAdapter.notifyDataSetChanged();
         }
-    }
-
-    private void navigateToMain() {
-        Intent intent = new Intent(CreatePizzaActivity.this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    private void navigateToOrderHistory() {
-        Intent intent = new Intent(CreatePizzaActivity.this, OrderHistoryActivity.class);
-        startActivity(intent);
-    }
-
-    private void navigateToCurrentOrder() {
-        Intent intent = new Intent(CreatePizzaActivity.this, CurrentOrderActivity.class);
-        startActivity(intent);
     }
 }

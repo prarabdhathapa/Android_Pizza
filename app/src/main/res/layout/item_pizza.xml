@@ -10,8 +10,8 @@
         android:id="@+id/pizzaImage"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:layout_marginBottom="4dp"
         android:layout_gravity="center"
+        android:layout_marginBottom="4dp"
         android:src="@drawable/ic_pizza" />
 
     <!-- Text for the pizza name -->
@@ -22,36 +22,38 @@
         android:text="@string/defaultPizza"
         android:textSize="16sp"
         android:textStyle="bold" />
+
     <TextView
         android:id="@+id/pizza_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="@string/defaultSize"
-        android:textSize="16sp"
-        android:gravity="center" />
-
-    <TextView
-        android:id="@+id/pizza_toppings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/defaultToppings"
-        android:textSize="16sp"
-        android:gravity="center" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/pizza_crust"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Thin"
-        android:textSize="16sp"
-        android:gravity="center" />
+        android:gravity="center"
+        android:text="@string/defaultCrust"
+        android:textSize="16sp" />
+
     <TextView
         android:id="@+id/pizza_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="$XXX"
-        android:textSize="16sp"
-        android:gravity="center" />
+        android:gravity="center"
+        android:text="@string/defaultOrderSubtotal"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/pizza_toppings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/defaultToppings"
+        android:textSize="16sp" />
 
 
 </LinearLayout>

@@ -12,12 +12,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.cs213_project_5.R;
 
 import java.util.ArrayList;
+
 import src.pizzeria.Order;
 
 public class OrderHistoryActivity extends AppCompatActivity {
 
     private OrderAdapter orderAdapter;
     private ArrayList<Order> completedOrders;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +43,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
         findViewById(R.id.cancel_order_button).setOnClickListener(v -> cancelOrder());
     }
 
-    private void cancelOrder(){
+    private void cancelOrder() {
         if (completedOrders.size() > 0) {
             Order selectedOrder = completedOrders.get(0); // For example, the first order
             completedOrders.remove(selectedOrder); // Remove the entire order
@@ -50,23 +52,28 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
             orderAdapter.notifyDataSetChanged();
         } else {
-            Toast.makeText(this, "No orders available to cancel", Toast.LENGTH_SHORT).show();
+            noOrderAlert();
         }
     }
 
-    // Method to navigate to Main activity
+    private void noOrderAlert() {
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("No Order in Order History")
+                .setMessage("There is no order in this list")
+                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
     private void navigateToMain() {
         Intent intent = new Intent(OrderHistoryActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
-    // Method to navigate to Create Pizza activity
     private void navigateToCreatePizza() {
         Intent intent = new Intent(OrderHistoryActivity.this, CreatePizzaActivity.class);
         startActivity(intent);
     }
 
-    // Method to navigate to Current Order activity
     private void navigateToCurrentOrder() {
         Intent intent = new Intent(OrderHistoryActivity.this, CurrentOrderActivity.class);
         startActivity(intent);
