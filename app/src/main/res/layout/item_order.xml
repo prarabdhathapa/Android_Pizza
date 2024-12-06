@@ -1,0 +1,53 @@
+<!-- res/layout/order_history_item.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Order details -->
+    <TextView
+        android:id="@+id/order_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order #"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/order_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pizza details will appear here"
+        android:textSize="14sp" />
+
+    <!-- Order price details -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/order_subtotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Subtotal: $"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/order_tax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tax: $"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/order_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total: $"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</LinearLayout>
