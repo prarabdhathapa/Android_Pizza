@@ -102,7 +102,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
     private void confirmationAlert(){
         new androidx.appcompat.app.AlertDialog.Builder(this)
                 .setTitle("Order Added")
-                .setMessage("Your order has been added and can be seen in order history, continue?")
+                .setMessage("Your order has been successfully added! Continue to checkout?")
                 .setPositiveButton("OK", (dialog, which) -> {
                     dialog.dismiss();
                     navigateToOrderHistory();
