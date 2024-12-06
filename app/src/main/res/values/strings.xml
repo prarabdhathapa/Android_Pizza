@@ -7,4 +7,22 @@
         <item>Large</item>
     </string-array>
 
+    <string name="orderHistory">Order History</string>
+    <string name="createPizza">Create Pizza</string>
+    <string name="currentOrder">Current Order</string>
+    <string name="cont">Continue</string>
+    <string name="back">Back</string>
+    <string name="createPizzaTitle">Create Your Pizza</string>
+    <string name="currentOrderTitle">Order Details</string>
+    <string name="orderHistoryTitle">Placed Orders</string>
+    <string name="defaultPizzaPrice">Price: $0.00</string>
+    <string name="defaultOrderSubtotal">Subtotal: $0.00</string>
+    <string name="defaultOrderTax">Tax: $0.00</string>
+    <string name="defaultOrderTotal">Total: $0.00</string>
+    <string name="addPizza">Add To Order</string>
+    <string name="removePizza">Remove Item</string>
+    <string name="removeOrder">Cancel Order</string>
+    <string name="addOrder">Checkout</string>
+
+
 </resources>
