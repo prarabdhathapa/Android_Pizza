@@ -16,6 +16,8 @@ import src.pizzeria.Order;
 
 public class OrderHistoryActivity extends AppCompatActivity {
 
+    private OrderAdapter orderAdapter;
+    private ArrayList<Order> completedOrders;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,14 +25,9 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
         ListView orderHistoryListview = findViewById(R.id.order_history_list_view);
 
-        ArrayList<Order> completedOrders = Pizzeria.getCompletedOrders();
+        completedOrders = Pizzeria.getCompletedOrders();
 
-        ArrayAdapter<Order> orderAdapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_1,
-                completedOrders
-        );
-
+        orderAdapter = new OrderAdapter(this, completedOrders);
         orderHistoryListview.setAdapter(orderAdapter);
 
         orderHistoryListview.setOnItemClickListener((parent, view, position, id) -> {
@@ -41,6 +38,23 @@ public class OrderHistoryActivity extends AppCompatActivity {
         findViewById(R.id.closeButton).setOnClickListener(v -> navigateToMain());
         findViewById(R.id.backButton).setOnClickListener(v -> navigateToCurrentOrder());
         findViewById(R.id.continueButton).setOnClickListener(v -> navigateToCreatePizza());
+        findViewById(R.id.cancel_order_button).setOnClickListener(v -> cancelOrder());
+    }
+
+    private void cancelOrder(){
+        if (completedOrders.size() > 0) {
+            // For simplicity, remove the first order (You can modify to allow user to select an order to cancel)
+            Order selectedOrder = completedOrders.get(0); // For example, the first order
+            completedOrders.remove(selectedOrder); // Remove the entire order
+
+            // Notify user that the order has been canceled
+            Toast.makeText(this, "Order #" + selectedOrder.getNumber() + " has been canceled", Toast.LENGTH_SHORT).show();
+
+            // Notify the adapter that the list has been updated
+            orderAdapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(this, "No orders available to cancel", Toast.LENGTH_SHORT).show();
+        }
     }
 
     // Method to navigate to Main activity
