@@ -19,14 +19,14 @@
         android:id="@+id/pizzaName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pizza Name"
+        android:text="@string/defaultPizza"
         android:textSize="16sp"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/pizza_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Size: Medium"
+        android:text="@string/defaultSize"
         android:textSize="16sp"
         android:gravity="center" />
 
@@ -34,7 +34,7 @@
         android:id="@+id/pizza_toppings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Toppings: Cheese, Pepperoni"
+        android:text="@string/defaultToppings"
         android:textSize="16sp"
         android:gravity="center" />
 

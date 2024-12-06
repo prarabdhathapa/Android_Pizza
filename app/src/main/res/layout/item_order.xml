@@ -10,7 +10,7 @@
         android:id="@+id/order_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Order #"
+        android:text="@string/defaultOrderID"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -18,7 +18,7 @@
         android:id="@+id/order_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pizza details will appear here"
+        android:text="@string/defaultPizzaDetails"
         android:textSize="14sp" />
 
     <!-- Order price details -->
@@ -32,21 +32,21 @@
             android:id="@+id/order_subtotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Subtotal: $"
+            android:text="@string/defaultOrderSubtotal"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/order_tax"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tax: $"
+            android:text="@string/defaultOrderTax"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/order_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total: $"
+            android:text="@string/defaultOrderTotal"
             android:textSize="14sp" />
     </LinearLayout>
 

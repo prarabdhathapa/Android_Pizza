@@ -23,6 +23,11 @@
     <string name="removePizza">Remove Item</string>
     <string name="removeOrder">Cancel Order</string>
     <string name="addOrder">Checkout</string>
-
+    <string name="defaultTopping">Topping Name</string>
+    <string name="defaultPizza">Pizza Name</string>
+    <string name="defaultSize">Size</string>
+    <string name="defaultToppings">No Toppings</string>
+    <string name="defaultOrderID">Order #</string>
+    <string name="defaultPizzaDetails">Pizza Details Here</string>
 
 </resources>
