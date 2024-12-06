@@ -8,9 +8,10 @@
     <!-- Image for the pizza -->
     <ImageView
         android:id="@+id/pizzaImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
         android:layout_marginBottom="4dp"
+        android:layout_gravity="center"
         android:src="@drawable/ic_pizza" />
 
     <!-- Text for the pizza name -->
@@ -21,5 +22,20 @@
         android:text="Pizza Name"
         android:textSize="16sp"
         android:textStyle="bold" />
+    <TextView
+        android:id="@+id/pizza_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Size: Medium"
+        android:textSize="16sp"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/pizza_toppings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Toppings: Cheese, Pepperoni"
+        android:textSize="16sp"
+        android:gravity="center" />
 
 </LinearLayout>

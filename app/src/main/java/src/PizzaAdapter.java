@@ -37,7 +37,8 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
         Pizza pizza = pizzas.get(position);
         holder.nameTextView.setText(pizza.getName());
         holder.pizzaImageView.setImageResource(pizza.getImageResID());
-
+        holder.pizzaSize.setText("Size: " + pizza.getSize()); // Set the pizza size
+        holder.pizzaToppings.setText("Toppings: " + pizza.getToppings());
         // Highlight the selected pizza
         if (selectedPosition == position) {
             holder.itemView.setBackgroundColor(Color.LTGRAY);
@@ -82,13 +83,15 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
     }
 
     public class PizzaViewHolder extends RecyclerView.ViewHolder {
-        TextView nameTextView;
+        TextView nameTextView, pizzaSize, pizzaToppings;
         ImageView pizzaImageView;
 
         public PizzaViewHolder(View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.pizzaName);
             pizzaImageView = itemView.findViewById(R.id.pizzaImage);
+            pizzaSize = itemView.findViewById(R.id.pizza_size);
+            pizzaToppings = itemView.findViewById(R.id.pizza_toppings);
         }
     }
 }

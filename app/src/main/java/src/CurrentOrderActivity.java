@@ -39,8 +39,8 @@ public class CurrentOrderActivity extends AppCompatActivity {
         selectedPizza = null;
 
         pizzaAdapter = new PizzaAdapter(pizzas, pizza ->{
-                selectedPizza = pizza;
-                Toast.makeText(this, "Selected: " + pizza.getName(), Toast.LENGTH_SHORT).show();
+            selectedPizza = pizza;
+            Toast.makeText(this, "Selected: " + pizza.getName(), Toast.LENGTH_SHORT).show();
         });
 
         orderRecyclerView.setAdapter(pizzaAdapter);
@@ -72,31 +72,31 @@ public class CurrentOrderActivity extends AppCompatActivity {
         confirmationAlert();
     }
     private void removePizza(ArrayList<Pizza> pizzas, TextView subTotalView, TextView taxView, TextView totalView){
-            if (selectedPizza != null) {
-                int selectedPizzaPosition = pizzas.indexOf(selectedPizza);
+        if (selectedPizza != null) {
+            int selectedPizzaPosition = pizzas.indexOf(selectedPizza);
 
-                pizzas.remove(selectedPizza);
-                pizzaAdapter.notifyDataSetChanged();
-                updatePriceDisplay(subTotalView, taxView, totalView);
+            pizzas.remove(selectedPizza);
+            pizzaAdapter.notifyDataSetChanged();
+            updatePriceDisplay(subTotalView, taxView, totalView);
 
-                // Handle the case when there are still pizzas left
-                if (!pizzas.isEmpty()) {
-                    if (selectedPizzaPosition == 0) {
-                        // If the first pizza was removed, select the new first pizza
-                        selectedPizza = pizzas.get(0);
-                    } else {
-                        // Otherwise, select the next pizza in the list
-                        selectedPizza = pizzas.get(Math.min(selectedPizzaPosition, pizzas.size() - 1));
-                    }
-                    pizzaAdapter.notifyDataSetChanged(); // Ensure the adapter is updated
+            // Handle the case when there are still pizzas left
+            if (!pizzas.isEmpty()) {
+                if (selectedPizzaPosition == 0) {
+                    // If the first pizza was removed, select the new first pizza
+                    selectedPizza = pizzas.get(0);
                 } else {
-                    selectedPizza = null;  // Reset if no pizzas are left
+                    // Otherwise, select the next pizza in the list
+                    selectedPizza = pizzas.get(Math.min(selectedPizzaPosition, pizzas.size() - 1));
                 }
-
-                Toast.makeText(this, "Pizza removed", Toast.LENGTH_SHORT).show();
+                pizzaAdapter.notifyDataSetChanged(); // Ensure the adapter is updated
             } else {
-                noPizzaAlert();
+                selectedPizza = null;  // Reset if no pizzas are left
             }
+
+            Toast.makeText(this, "Pizza removed", Toast.LENGTH_SHORT).show();
+        } else {
+            noPizzaAlert();
+        }
     }
 
     private void confirmationAlert(){

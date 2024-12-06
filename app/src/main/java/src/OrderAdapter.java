@@ -55,8 +55,8 @@ public class OrderAdapter extends ArrayAdapter<Order> {
 
         // Set pricing details
         holder.subtotalTextView.setText(String.format("Subtotal: $%.2f", order.getTotalPrice()));
-        holder.taxTextView.setText(String.format("Tax: $%.2f", order.getTotalTax()));
-        holder.totalTextView.setText(String.format("Total: $%.2f", order.getTotalTax() + order.getTotalPrice()));
+        holder.taxTextView.setText(String.format(" Tax: $%.2f", order.getTotalTax()));
+        holder.totalTextView.setText(String.format(" Total: $%.2f", order.getTotalTax() + order.getTotalPrice()));
 
         return convertView;
     }
