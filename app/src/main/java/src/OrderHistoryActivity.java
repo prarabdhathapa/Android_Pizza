@@ -43,14 +43,11 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
     private void cancelOrder(){
         if (completedOrders.size() > 0) {
-            // For simplicity, remove the first order (You can modify to allow user to select an order to cancel)
             Order selectedOrder = completedOrders.get(0); // For example, the first order
             completedOrders.remove(selectedOrder); // Remove the entire order
 
-            // Notify user that the order has been canceled
             Toast.makeText(this, "Order #" + selectedOrder.getNumber() + " has been canceled", Toast.LENGTH_SHORT).show();
 
-            // Notify the adapter that the list has been updated
             orderAdapter.notifyDataSetChanged();
         } else {
             Toast.makeText(this, "No orders available to cancel", Toast.LENGTH_SHORT).show();
