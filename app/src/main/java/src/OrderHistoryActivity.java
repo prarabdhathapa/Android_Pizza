@@ -19,6 +19,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
     private OrderAdapter orderAdapter;
     private ArrayList<Order> completedOrders;
+    private int selectedPosition = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
         orderHistoryListview.setAdapter(orderAdapter);
 
         orderHistoryListview.setOnItemClickListener((parent, view, position, id) -> {
+            selectedPosition = position;
             Order selectedOrder = completedOrders.get(position);
             Toast.makeText(this, "Selected Order #" + selectedOrder.getNumber(), Toast.LENGTH_SHORT).show();
         });
@@ -44,13 +46,14 @@ public class OrderHistoryActivity extends AppCompatActivity {
     }
 
     private void cancelOrder() {
-        if (completedOrders.size() > 0) {
-            Order selectedOrder = completedOrders.get(0); // For example, the first order
+        if (selectedPosition != -1 && selectedPosition < completedOrders.size()) {
+            Order selectedOrder = completedOrders.get(selectedPosition); // For example, the first order
             completedOrders.remove(selectedOrder); // Remove the entire order
 
             Toast.makeText(this, "Order #" + selectedOrder.getNumber() + " has been canceled", Toast.LENGTH_SHORT).show();
 
             orderAdapter.notifyDataSetChanged();
+            selectedPosition = -1;
         } else {
             noOrderAlert();
         }
